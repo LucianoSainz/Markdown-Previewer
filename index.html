@@ -9,24 +9,79 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <title>Markdown</title>
+    <script src="./js/marked.js"></script>
+
+    <script>
+       function updatePreview(){
+      let previewElement = document.getElementById("preview");
+      let editorValue = document.getElementById("editor").value;
+      let markedUpHTML = marked(editorValue);
+      previewElement.innerHTML = markedUpHTML;
+      }
+
+      function setDefault(){
+          let defaultText = `
+# FreeCodeCamp
+## visit my website to see other projects   
+[my website](http://lucianosainz.com)    
+ <dl>
+ <dt></dt>
+ <dt></dt>
+ </dl>
+
+\`This is a project made for FreeCodeCamp\`
+
+\`\`\`
+function exampleMode(){
+    return multiLineCodeBlock
+}
+\`\`\`
+
+- read
+- practice
+- code
+
+>Learn more every day
+
+**Bolder Text**
+
+![lucianosainz](https://stylersonline.com/wp-content/uploads/2020/08/Javascript-logo.png)
+
+
+})
+
+          `;
+
+          let editorField = document.getElementById("editor");
+          let previewElement = document.getElementById("preview");
+          editorField.value = defaultText;
+          previewElement.innerHTML = marked(defaultText);
+      }
+
+      marked.setOptions({
+          breaks: true
+})
+
+    </script>
+
   </head>
-  <body>
+  <body onload="setDefault()">
       <div class="container-fluid">
       <div class="row">
-          <div class="col text-center text-white bg-dark">
+          <div class="col text-center text-white bg-dark py-3">
         <h1>Markdown Previewer</h1>
       </div>
-      
     </div>
     
       <div class="row">
-      <div class="col-5 text-center">
-          <p>The Editor</p>
-          <textarea id="editor"></textarea>
+      <div class="col-6 d-flex flex-column bg-primary" >
+          <h2 class="text-center my-3">The Editor</h2>
+          <div class="form-group flex-grow-1 d-flex flex-column">
+          <textarea id="editor" onkeyup="updatePreview()" class="form-control flex-grow-1"></textarea>
       </div>
-      <span class="border-left min-vh-100  align-items-center" ></span>
-      <div class="col-5 text-center">
-          <p>The Markdown Previewer</p>
+      </div>
+      <div class="col-6">
+          <h2 class="text-center my-3">The Markdown Preview</h2>
           <div id="preview"></div>
       </div>
       </div>
